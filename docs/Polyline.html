@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Polyline</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="css/elixir.css" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8">
+      relpath = '';
+      if (relpath != '') relpath += '/';
+    </script>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+
+    <section id="content">
+      <div class="breadcrumbs">polyline v0.0.1 &rarr; <a href="overview.html">Overview</a> &rarr; <a href="Polyline.html">Polyline</a></div>
+      <h1>
+        Polyline
+        
+      </h1>
+
+      <ul class="summary_links">
+        
+          <li><a href="#summary">Summary</a></li>
+        
+        
+        
+          <li><a href="#functions_details">Functions</a></li>
+        
+        
+        
+      </ul>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Encode and decode the Google Maps API <code class="inline">polyline</code> format. Implements the
+algorithm described in <a href="https://developers.google.com/maps/documentation/utilities/polylinealgorithm" title="">Google Maps API Documentation</a></p>
+
+        </section>
+      
+
+      
+
+      
+        <h2 id="summary">Summary<span class="detail_header_links"><a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a></span></h2>
+        <table class="summary">
+          <tr>
+  <td class="summary_signature"><a href="#e5/1">e5(coord)</a></td>
+  
+    <td class="summary_synopsis"><p>Multiply a floating number coordinate in degrees with a factor of
+10,000 and round it to the nearest signed integer. If the input is
+already in the desired format, do nothing</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#make_polyline/1">make_polyline(offset_list)</a></td>
+  
+    <td class="summary_synopsis"><p>Encode a list of a start point concatenated with a list of offsets
+into an ASCII string (formatted as a Google Maps API <code class="inline">polyline</code>)</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#to_offset_list/1">to_offset_list(polyline)</a></td>
+  
+    <td class="summary_synopsis"><p>Converts a (GoogleMapsAPI-flavored) base64-encoded <code class="inline">polyline</code> into a
+list of a start point concatenated with a list of offsets:</p>
+</td>
+  
+</tr>
+<tr>
+  <td class="summary_signature"><a href="#to_point_list/1">to_point_list(polyline)</a></td>
+  
+    <td class="summary_synopsis"><p>Converts a (GoogleMapsAPI-flavored) base64-encoded <code class="inline">polyline</code> to a
+list of points</p>
+</td>
+  
+</tr>
+
+        </table>
+      
+
+      
+
+      
+        <section id="functions_details" class="details_list">
+          <h2>Functions</h2>
+          <section class="detail">
+  <div class="detail_header" id="e5/1">
+    <span class="signature"><strong>e5(coord)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#e5/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>e5(number) :: integer</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Multiply a floating number coordinate in degrees with a factor of
+10,000 and round it to the nearest signed integer. If the input is
+already in the desired format, do nothing.</p>
+<pre><code>iex&gt; Polyline.e5 38.5
+3850000
+iex&gt; Polyline.e5 -2
+-2</code></pre>
+
+  </section>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="make_polyline/1">
+    <span class="signature"><strong>make_polyline(offset_list)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#make_polyline/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>make_polyline([{number, number}]) :: {:ok, char_list}</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Encode a list of a start point concatenated with a list of offsets
+into an ASCII string (formatted as a Google Maps API <code class="inline">polyline</code>).</p>
+<pre><code>iex&gt;  Polyline.make_polyline [{38.5, -120.2}, {220000, -75000}, {255200, -550300}]      
+'_p~iF~ps|U_ulLnnqC_mqNvxq`@'</code></pre>
+
+  </section>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="to_offset_list/1">
+    <span class="signature"><strong>to_offset_list(polyline)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#to_offset_list/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>to_offset_list(char_list) :: {:ok, [{integer, integer}]}</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Converts a (GoogleMapsAPI-flavored) base64-encoded <code class="inline">polyline</code> into a
+list of a start point concatenated with a list of offsets:</p>
+<p><code class="inline">offset_list = [{start_lat, start_lng}, {offset1, offset2}, ...]</code>.</p>
+<pre><code>iex&gt;  Polyline.to_offset_list '_p~iF~ps|U_ulLnnqC_mqNvxq`@'
+[{3850000, -12020000}, {220000, -75000}, {255200, -550300}]</code></pre>
+
+  </section>
+  
+</section>
+<section class="detail">
+  <div class="detail_header" id="to_point_list/1">
+    <span class="signature"><strong>to_point_list(polyline)</strong></span>
+    <div class="detail_header_links">
+      <span class="detail_type">(function)</span>
+      <a href="#to_point_list/1" class="detail_link" title="Link to this function">#</a>
+      <a class="to_top_link" href="#content" title="To the top of the page">&uarr;</a>
+    </div>
+  </div>
+  
+    <p>Specs:</p>
+    <ul class="spec">
+      
+        <li>to_point_list(char_list) :: {:ok, [{integer, integer}]}</li>
+      
+    </ul>
+  
+  <section class="docstring">
+    <p>Converts a (GoogleMapsAPI-flavored) base64-encoded <code class="inline">polyline</code> to a
+list of points.</p>
+<p>Points are tuples of the form <code class="inline">{latitude, longitude}</code>.</p>
+<p><code class="inline">latitude</code> and <code class="inline">longitude</code> are signed integers: the rounded value of (degrees * 1e5).</p>
+<pre><code>iex&gt; Polyline.to_point_list '_p~iF~ps|U_ulLnnqC_mqNvxq`@'
+[{3850000, -12020000}, {4070000, -12095000}, {4325200, -12645300}]</code></pre>
+
+  </section>
+  
+</section>
+
+        </section>
+      
+
+      
+
+      
+    </section>
+  </body>
+</html>
