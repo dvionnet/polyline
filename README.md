@@ -4,6 +4,8 @@ Polyline is a tool to decode and encode polylines in **Google Maps API**. It can
 
 See the [Google Maps API Documentation][1] for a description of the algorithm used to encode polylines.
 
+[![Build Status](https://travis-ci.org/dvionnet/polyline.svg?branch=master)][2]
+
 ## Encode
 
 ### List of Offsets
@@ -33,3 +35,4 @@ iex> Polyline.make_polyline [{38.5, -120.2}, {4070000, -12095000}, {4325200, -12
 Copyright (c) 2014 David Vionnet. See the LICENSE file for license rights and limitations (MIT).
 
 [1]: https://developers.google.com/maps/documentation/utilities/polylinealgorithm
+[2]: https://travis-ci.org/dvionnet/polyline
