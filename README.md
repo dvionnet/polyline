@@ -21,7 +21,7 @@ iex> Polyline.to_point_list '_p~iF~ps|U_ulLnnqC_mqNvxq`@'
 {:ok, [{3850000, -12020000}, {4070000, -12095000}, {4325200, -12645300}]}
 ```
 
-## Encode
+## Decode
 
 ```iex
 iex> Polyline.make_polyline [{38.5, -120.2}, {4070000, -12095000}, {4325200, -12645300}]
