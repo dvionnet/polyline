@@ -31,4 +31,8 @@ defmodule Polyline.Mixfile do
       {:ex_doc, "~> 0.6", only: :dev}
     ]
   end
+
+  defp env do
+    []
+  end
 end
