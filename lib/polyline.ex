@@ -15,26 +15,32 @@ defmodule Polyline do
 
   Points are tuples of the form `{latitude, longitude}`.
 
-  `latitude` and `longitude` are signed integers: the rounded value of (degrees * 1e5).
+  ## Examples
 
       iex> Polyline.to_point_list '_p~iF~ps|U_ulLnnqC_mqNvxq`@'
-      [{3850000, -12020000}, {4070000, -12095000}, {4325200, -12645300}]
+      {:ok, [{38.5, -120.2}, {40.7, -120.95}, {43.252, -126.453}]}
+  
   """
   @spec to_point_list(char_list) :: {:ok, [{integer, integer}]}
   def to_point_list polyline do
     { :ok, offset_list } = to_offset_list polyline
     { :ok, offset_list |> Stream.scan(fn({a,b}, {c,d}) -> {a + c, b + d} end)
+                       |> Stream.map(fn({a,b}) -> {a / 1.0e5, b / 1.0e5} end)
                        |> Enum.to_list }
   end
 
   @doc """
   Converts a (GoogleMapsAPI-flavored) base64-encoded `polyline` into a
-  list of a start point concatenated with a list of offsets:
+  list of a start point concatenated with a list of offsets, in e5
+  notation:
 
   `offset_list = [{start_lat, start_lng}, {offset1, offset2}, ...]`.
-    
+  
+  ## Examples
+
       iex>  Polyline.to_offset_list '_p~iF~ps|U_ulLnnqC_mqNvxq`@'
-      [{3850000, -12020000}, {220000, -75000}, {255200, -550300}]
+      {:ok, [{3850000, -12020000}, {220000, -75000}, {255200, -550300}]}
+  
   """
   @spec to_offset_list(char_list) :: {:ok, [{integer, integer}]}
   def to_offset_list polyline do
@@ -48,8 +54,11 @@ defmodule Polyline do
   Encode a list of a start point concatenated with a list of offsets
   into an ASCII string (formatted as a Google Maps API `polyline`).
 
+  ## Examples
+
       iex>  Polyline.make_polyline [{38.5, -120.2}, {220000, -75000}, {255200, -550300}]      
-      '_p~iF~ps|U_ulLnnqC_mqNvxq`@'
+      {:ok, '_p~iF~ps|U_ulLnnqC_mqNvxq`@'}
+  
   """
   @spec make_polyline([{number, number}]) :: {:ok, char_list}
   def make_polyline offset_list do
@@ -60,6 +69,8 @@ defmodule Polyline do
   Multiply a floating number coordinate in degrees with a factor of
   10,000 and round it to the nearest signed integer. If the input is
   already in the desired format, do nothing.
+
+  ## Examples
 
       iex> Polyline.e5 38.5
       3850000
