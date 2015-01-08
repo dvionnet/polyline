@@ -74,7 +74,8 @@ into an ASCII string (formatted as a Google Maps API <code class="inline">polyli
   <td class="summary_signature"><a href="#to_offset_list/1">to_offset_list(polyline)</a></td>
   
     <td class="summary_synopsis"><p>Converts a (GoogleMapsAPI-flavored) base64-encoded <code class="inline">polyline</code> into a
-list of a start point concatenated with a list of offsets:</p>
+list of a start point concatenated with a list of offsets, in e5
+notation:</p>
 </td>
   
 </tr>
@@ -116,6 +117,7 @@ list of points</p>
     <p>Multiply a floating number coordinate in degrees with a factor of
 10,000 and round it to the nearest signed integer. If the input is
 already in the desired format, do nothing.</p>
+<h2>Examples</h2>
 <pre><code>iex&gt; Polyline.e5 38.5
 3850000
 iex&gt; Polyline.e5 -2
@@ -144,8 +146,9 @@ iex&gt; Polyline.e5 -2
   <section class="docstring">
     <p>Encode a list of a start point concatenated with a list of offsets
 into an ASCII string (formatted as a Google Maps API <code class="inline">polyline</code>).</p>
+<h2>Examples</h2>
 <pre><code>iex&gt;  Polyline.make_polyline [{38.5, -120.2}, {220000, -75000}, {255200, -550300}]      
-'_p~iF~ps|U_ulLnnqC_mqNvxq`@'</code></pre>
+{:ok, '_p~iF~ps|U_ulLnnqC_mqNvxq`@'}</code></pre>
 
   </section>
   
@@ -169,10 +172,12 @@ into an ASCII string (formatted as a Google Maps API <code class="inline">polyli
   
   <section class="docstring">
     <p>Converts a (GoogleMapsAPI-flavored) base64-encoded <code class="inline">polyline</code> into a
-list of a start point concatenated with a list of offsets:</p>
+list of a start point concatenated with a list of offsets, in e5
+notation:</p>
 <p><code class="inline">offset_list = [{start_lat, start_lng}, {offset1, offset2}, ...]</code>.</p>
+<h2>Examples</h2>
 <pre><code>iex&gt;  Polyline.to_offset_list '_p~iF~ps|U_ulLnnqC_mqNvxq`@'
-[{3850000, -12020000}, {220000, -75000}, {255200, -550300}]</code></pre>
+{:ok, [{3850000, -12020000}, {220000, -75000}, {255200, -550300}]}</code></pre>
 
   </section>
   
@@ -198,9 +203,9 @@ list of a start point concatenated with a list of offsets:</p>
     <p>Converts a (GoogleMapsAPI-flavored) base64-encoded <code class="inline">polyline</code> to a
 list of points.</p>
 <p>Points are tuples of the form <code class="inline">{latitude, longitude}</code>.</p>
-<p><code class="inline">latitude</code> and <code class="inline">longitude</code> are signed integers: the rounded value of (degrees * 1e5).</p>
+<h2>Examples</h2>
 <pre><code>iex&gt; Polyline.to_point_list '_p~iF~ps|U_ulLnnqC_mqNvxq`@'
-[{3850000, -12020000}, {4070000, -12095000}, {4325200, -12645300}]</code></pre>
+{:ok, [{38.5, -120.2}, {40.7, -120.95}, {43.252, -126.453}]}</code></pre>
 
   </section>
   
